@@ -1,10 +1,17 @@
 import React from 'react';
-import Topbar from '../components/Topbar';
+import { Feed, Rightbar, Sidebar, Topbar } from '../components';
 import './home.css';
 
 const Home = () => {
   return (
-    <Topbar />
+    <>
+      <Topbar />
+      <div className="homeContainer">
+        <Sidebar />
+        <Feed />
+        <Rightbar />
+      </div>
+    </>
   )
 }
 

@@ -12,7 +12,7 @@ import {
   School,
 } from "@material-ui/icons";
 import { v4 as uuidv4 } from 'uuid';
-import { Users } from '../../fakeData';
+import { users } from '../../fakeData';
 
 const Sidebar = () => {
   return (
@@ -61,7 +61,7 @@ const Sidebar = () => {
         <hr className="sidebarHr" />
 
         <ul className="sidebarFriendList">
-          {Users.map(user => (
+          {users.map(user => (
             <li key={uuidv4()} className="sidebarFriend">
               <img src={user.profilePicture} alt={user.username} />
               <span className="sidebarFriendName">{user.username}</span>

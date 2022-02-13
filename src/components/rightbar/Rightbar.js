@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
 import "./rightbar.css";
 import { v4 as uuidv4 } from 'uuid';
-import { users } from "../../fakeData";
+import { users } from '../../fakeData';
+import { Online } from '..';
 
 const Rightbar = () => {
   return (
@@ -17,13 +18,7 @@ const Rightbar = () => {
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
           {users.map(user => (
-            <li key={uuidv4()} className="rightbarFriend">
-              <div className="righbarProfileImgContainer">
-                <img className="rightbarProfileImg" src={user.profilePicture} alt="profileImg" />
-                <span className="rightbarOnline"></span>
-              </div>
-              <span className="rightbarUsername">{user.username}</span>
-            </li>
+            <Online key={uuidv4} user={user}/>
           ))}
         </ul>
       </div>

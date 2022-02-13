@@ -43,37 +43,3 @@ font-size: 16px;
 font-weight: 600;
 margin-bottom: 10px;
 }
-
-.rightbarFriend {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.righbarProfileImgContainer {
-  display: flex;
-  position: relative;
-  margin-right: 10px;
-}
-
-.rightbarProfileImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.rightbarOnline {
-  width: 10px;
-  height: 10px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  background-color: green;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.rightbarUsername {
-  font-size: 14px;
-}

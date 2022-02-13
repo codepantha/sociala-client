@@ -1,11 +1,20 @@
 import { MoreVert } from '@material-ui/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import './post.css';
 import { users } from '../../fakeData';
 
 const Post = ({ post }) => {
   const { desc, photo, date, like, comment } = post;
   const user = users.filter(user => user.id === post.userId)
+
+  const [likes, setLikes] = useState(like);
+  const [isLiked, setIsLiked] = useState(false)
+
+  const onLikeHandler = () => {
+    setIsLiked(!isLiked);
+    setLikes(isLiked ? likes - 1: likes + 1);
+  }
+
   return (
     <article className="post">
       <div className="postWrapper">
@@ -25,9 +34,9 @@ const Post = ({ post }) => {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src="assets/like.png" alt="like" />
+            <img className="likeIcon" src="assets/like.png" alt="like" onClick={onLikeHandler} />
             <img className="likeIcon" src="assets/heart.png" alt="like" />
-            <span className="likesCounter">{like} people like this</span>
+            <span className="likesCounter">{likes} people like this</span>
           </div>
           <div className="postBottomRight">
             <span className="commentsCounter">{comment} comments</span>

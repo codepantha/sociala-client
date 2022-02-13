@@ -1,15 +1,13 @@
 import React from 'react';
-import Home from './pages/Home';
+import { Home, Profile, Login } from './pages';
 import './style.css';
-import { Topbar } from './components';
-import Profile from './pages/profile/Profile';
 
 const App = () => {
   return (
     <>
-      <Topbar />
       {/* <Home /> */}
-      <Profile />
+      {/* <Profile /> */}
+      <Login />
     </>
     
   )

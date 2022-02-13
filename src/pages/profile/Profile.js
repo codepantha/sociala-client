@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar } from '../../components'
+import { Sidebar, Topbar } from '../../components'
 import { Feed } from '../../components'
 import { Rightbar } from '../../components'
 import './profile.css';
@@ -7,6 +7,7 @@ import './profile.css';
 const Profile = () => {
   return (
     <>
+      <Topbar />
       <section className="profile">
         <Sidebar />
         <div className="profileRight">

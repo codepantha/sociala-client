@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Profile, Login } from './pages';
+import { Home, Profile, Login, Register } from './pages';
 import './style.css';
 
 const App = () => {
@@ -7,7 +7,8 @@ const App = () => {
     <>
       {/* <Home /> */}
       {/* <Profile /> */}
-      <Login />
+      {/* <Login /> */}
+      <Register />
     </>
     
   )

@@ -1,16 +1,18 @@
 import { MoreVert } from '@material-ui/icons';
 import React from 'react';
 import './post.css';
+import { users } from '../../fakeData';
 
-const Post = (props) => {
-  const { username, desc, photo, date, like, comment } = props;
+const Post = ({ post }) => {
+  const { desc, photo, date, like, comment } = post;
+  const user = users.filter(user => user.id === post.userId)
   return (
     <article className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img className="postProfileImg" src="assets/people/1.jpg" alt="profile-pic" />
-            <span className="postUsername">{username}</span>
+            <img className="postProfileImg" src={user[0]?.profilePicture} alt="profile-pic" />
+            <span className="postUsername">{user[0]?.username}</span>
             <span className="postDate">{date}</span>
           </div>
           <div className="postTopRight">

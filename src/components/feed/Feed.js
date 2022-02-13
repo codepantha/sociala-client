@@ -2,7 +2,7 @@ import React from 'react';
 import './feed.css';
 import { v4 as uuidv4 } from 'uuid';
 import { Post, Share } from '..';
-import { posts as dummyPosts, users } from '../../fakeData';
+import { posts as dummyPosts } from '../../fakeData';
 
 const Feed = () => {
   return (
@@ -12,12 +12,7 @@ const Feed = () => {
         {dummyPosts.map((dummyPost, i) => (
           <Post 
             key={uuidv4()}
-            username={users[i].username}
-            desc={dummyPost.desc}
-            photo={dummyPost.photo}
-            date={dummyPost.date}
-            like={dummyPost.like}
-            comment={dummyPost.comment}
+            post={dummyPost}
           />
         ))}
       </div>

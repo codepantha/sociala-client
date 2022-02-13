@@ -47,7 +47,7 @@ export const users = [
   {
     id:10,
     profilePicture: "assets/people/10.jpg",
-    username: "Safak Kocaoglu",
+    username: "Zerob Godfather",
   },
 ];
 

@@ -5,6 +5,7 @@ import { users } from '../../fakeData';
 import { Online } from '..';
 
 const Rightbar = ({ profile }) => {
+  // the rightbar that displays when on homepage
   const HomeRightBar = () => {
     return (
       <>
@@ -25,6 +26,7 @@ const Rightbar = ({ profile }) => {
     );
   };
 
+  // the rightbar that displays when on profile page
   const ProfileRightBar = () => {
     return (
       <>
@@ -78,7 +80,7 @@ const Rightbar = ({ profile }) => {
   return (
     <section className="rightbar">
       <div className="rightbarWrapper">
-        <ProfileRightBar />
+        {profile ? <ProfileRightBar /> : <HomeRightBar /> }
       </div>
     </section>
   );

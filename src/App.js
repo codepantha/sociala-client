@@ -5,10 +5,10 @@ import './style.css';
 const App = () => {
   return (
     <>
-      {/* <Home /> */}
+      <Home />
       {/* <Profile /> */}
       {/* <Login /> */}
-      <Register />
+      {/* <Register /> */}
     </>
     
   )

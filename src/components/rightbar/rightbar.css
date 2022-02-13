@@ -39,7 +39,32 @@ list-style: none;
 }
 
 .rightbarTitle{
-font-size: 16px;
-font-weight: 600;
+font-size: 18px;
+font-weight: 500;
 margin-bottom: 10px;
+}
+
+.rightbarInfo {
+  margin-bottom: 30px;
+}
+
+.rightbarFollowings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rightbarFollowing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.rightbarFollowingImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  object-fit: cover;
 }

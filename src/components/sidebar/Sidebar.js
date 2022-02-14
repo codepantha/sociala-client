@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { users } from '../../fakeData';
 
 const Sidebar = () => {
+  const assets = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <section className="sidebar">
       <div className="sidebarWrapper">
@@ -63,7 +64,7 @@ const Sidebar = () => {
         <ul className="sidebarFriendList">
           {users.map(user => (
             <li key={uuidv4()} className="sidebarFriend">
-              <img src={user.profilePicture} alt={user.username} />
+              <img src={assets + user.profilePicture} alt={user.username} />
               <span className="sidebarFriendName">{user.username}</span>
             </li>
           ))}

@@ -5,17 +5,18 @@ import { users } from '../../fakeData';
 import { Online } from '..';
 
 const Rightbar = ({ profile }) => {
+  const assets = process.env.REACT_APP_PUBLIC_FOLDER;
   // the rightbar that displays when on homepage
   const HomeRightBar = () => {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src="assets/gift.png" alt="gift" />
+          <img className="birthdayImg" src={`${assets}gift.png`} alt="gift" />
           <p className="birthdayText">
             <b>Jane Aniston</b> and <b>2 other friends</b> have a birthday today
           </p>
         </div>
-        <img className="rightbarAd" src="assets/ad.png" alt="ad" />
+        <img className="rightbarAd" src={`${assets}ad.png`} alt="ad" />
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
           {users.map(user => (
@@ -37,7 +38,7 @@ const Rightbar = ({ profile }) => {
             <span className="rightbarInfoValue">NY</span>
           </div>
           <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">from:</span>
+            <span className="rightbarInfoKey">From:</span>
             <span className="rightbarInfoValue">Madrid</span>
           </div>
           <div className="rightbarInfoItem">
@@ -49,27 +50,27 @@ const Rightbar = ({ profile }) => {
         <h4 className="rightbarTitle">Friends</h4>
         <div className="rightbarFollowings">
           <div className="rightbarFollowing">
-            <img src="assets/people/1.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/1.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/people/2.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/2.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/people/3.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/3.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/people/4.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/4.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/people/5.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/5.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/people/6.jpg" alt="" className="rightbarFollowingImg" />
+            <img src={`${assets}people/6.jpg`} alt="" className="rightbarFollowingImg" />
             <p className="rightbarFollowingName">Ricky Sander</p>
           </div>
         </div>

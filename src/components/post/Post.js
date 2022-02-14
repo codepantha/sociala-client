@@ -5,7 +5,8 @@ import { users } from '../../fakeData';
 
 const Post = ({ post }) => {
   const { desc, photo, date, like, comment } = post;
-  const user = users.filter(user => user.id === post.userId)
+  const user = users.filter(user => user.id === post.userId);
+  const assets = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const [likes, setLikes] = useState(like);
   const [isLiked, setIsLiked] = useState(false)
@@ -20,7 +21,7 @@ const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img className="postProfileImg" src={user[0]?.profilePicture} alt="profile-pic" />
+            <img className="postProfileImg" src={assets + user[0]?.profilePicture} alt="profile-pic" />
             <span className="postUsername">{user[0]?.username}</span>
             <span className="postDate">{date}</span>
           </div>
@@ -30,12 +31,12 @@ const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <p className="postText">{desc}</p>
-          <img src={photo} alt="post" className="postImg" />
+          <img src={assets + photo} alt="post" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src="assets/like.png" alt="like" onClick={onLikeHandler} />
-            <img className="likeIcon" src="assets/heart.png" alt="like" />
+            <img className="likeIcon" src={`${assets}like.png`} alt="like" onClick={onLikeHandler} />
+            <img className="likeIcon" src={`${assets}heart.png`} alt="like" />
             <span className="likesCounter">{likes} people like this</span>
           </div>
           <div className="postBottomRight">

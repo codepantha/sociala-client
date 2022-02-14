@@ -48,6 +48,16 @@ margin-bottom: 10px;
   margin-bottom: 30px;
 }
 
+.rightbarInfoItem {
+  margin-bottom: 10px;
+}
+
+.rightbarInfoKey {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
 .rightbarFollowings {
   display: flex;
   flex-wrap: wrap;

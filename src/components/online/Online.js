@@ -2,12 +2,13 @@ import React from 'react';
 import './online.css';
 
 const Online = ({ user }) => {
+  const assets = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <li className="rightbarFriend">
       <div className="righbarProfileImgContainer">
         <img
           className="rightbarProfileImg"
-          src={user.profilePicture}
+          src={assets + user.profilePicture}
           alt="profileImg"
         />
         <span className="rightbarOnline"></span>

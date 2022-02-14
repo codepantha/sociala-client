@@ -1,15 +1,26 @@
 import { MoreVert } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { format } from 'timeago.js';
 import './post.css';
-import { users } from '../../fakeData';
+import axios from 'axios';
 
 const Post = ({ post }) => {
-  const { desc, photo, date, like, comment } = post;
-  const user = users.filter(user => user.id === post.userId);
+  const { desc, img, createdAt, comment } = post;
+  const [likes, setLikes] = useState(post.likes?.length);
+  const [isLiked, setIsLiked] = useState(false)
+  const [user, setUser] = useState({});
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  const [likes, setLikes] = useState(like);
-  const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axios.get(`users/${post.userId}`);
+      const user = res.data;
+      setUser(user);
+    }
+    getUser();
+  }, [post.userId]);
+
 
   const onLikeHandler = () => {
     setIsLiked(!isLiked);
@@ -21,9 +32,9 @@ const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img className="postProfileImg" src={assets + user[0]?.profilePicture} alt="profile-pic" />
-            <span className="postUsername">{user[0]?.username}</span>
-            <span className="postDate">{date}</span>
+            <img className="postProfileImg" src={user.img || `${assets}avatar.png`} alt="profile-pic" />
+            <span className="postUsername">{user.username}</span>
+            <span className="postDate">{format(createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
@@ -31,7 +42,7 @@ const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <p className="postText">{desc}</p>
-          <img src={assets + photo} alt="post" className="postImg" />
+          <img src={assets + img} alt="post" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

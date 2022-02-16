@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { Sidebar, Topbar } from '../../components'
 import { Feed } from '../../components'
 import { Rightbar } from '../../components'
@@ -6,6 +7,8 @@ import './profile.css';
 
 const Profile = () => {
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { username } = useParams();
+
   return (
     <>
       <Topbar />
@@ -23,7 +26,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed />
+            <Feed username={username} />
             <Rightbar profile />
           </div>
         </div>

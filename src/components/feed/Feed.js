@@ -3,9 +3,11 @@ import "./feed.css";
 import { v4 as uuidv4 } from "uuid";
 import { Post, Share } from "..";
 import axios from "axios";
+import { useSelector } from 'react-redux';
 
 const Feed = ({ username }) => {
   const [posts, setPosts] = useState([]);
+  const { data: userLoggedIn } = useSelector(state => state.loginReducer);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -13,11 +15,11 @@ const Feed = ({ username }) => {
       // else fetch the loggedInUser's posts
       const res = username
         ? await axios.get(`/posts/${username}/all`)
-        : await axios.get("posts/timeline/6203a75b7cd6b8492f3aa6e1");
+        : await axios.get(`posts/timeline/${userLoggedIn._id}`);
       setPosts(res.data);
     };
     fetchPosts();
-  }, [username]);
+  }, [username, userLoggedIn]);
 
   return (
     <section className="feed">

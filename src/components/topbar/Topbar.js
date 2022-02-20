@@ -1,9 +1,12 @@
 import React from 'react';
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
 import './topbar.css';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Topbar = () => {
+  const assets = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { data: userLoggedIn } = useSelector(state => state.loginReducer)
   return (
     <section className="topbarContainer">
       <div className="topbarLeft">
@@ -39,7 +42,7 @@ const Topbar = () => {
           </div>
         </div>
         <div className="topbarImgContainer">
-          <img src="/assets/people/1.jpg" alt="profile-pic" className="topbarImg" />
+          <img src={assets + userLoggedIn?.profilePic} alt="profile-pic" className="topbarImg" />
         </div>
       </div>
     </section>

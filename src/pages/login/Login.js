@@ -1,6 +1,18 @@
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/auth";
 import "./login.css";
 
 export default function Login() {
+  const email = useRef('');
+  const password = useRef('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = {email: email.current.value, password: password.current.value};
+    dispatch(login(user))
+  }
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,15 +23,28 @@ export default function Login() {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
+          <form method="POST" onSubmit={handleSubmit} className="loginBox">
+            <input 
+              type="email"
+              required
+              placeholder="Email" 
+              ref={email} 
+              className="loginInput" 
+            />
+            <input 
+              type="password" 
+              required
+              minLength="6"
+              placeholder="Password" 
+              ref={password} 
+              className="loginInput" 
+            />
             <button className="loginButton">Log In</button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton">
               Create a New Account
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

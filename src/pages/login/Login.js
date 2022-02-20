@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { login } from "../../redux/auth/auth";
 import "./login.css";
 
@@ -39,11 +40,11 @@ export default function Login() {
               ref={password} 
               className="loginInput" 
             />
-            <button className="loginButton">Log In</button>
+            <button type="submit" className="loginButton">Log In</button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+            <Link to="/register" className="loginRegisterButton">
               Create a New Account
-            </button>
+            </Link>
           </form>
         </div>
       </div>

@@ -42,7 +42,9 @@ const Topbar = () => {
           </div>
         </div>
         <div className="topbarImgContainer">
-          <img src={assets + userLoggedIn?.profilePic} alt="profile-pic" className="topbarImg" />
+          <Link to={"profile/"+userLoggedIn.username}>
+            <img src={assets + userLoggedIn?.profilePic} alt="profile-pic" className="topbarImg" />
+          </Link>
         </div>
       </div>
     </section>

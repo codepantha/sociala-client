@@ -4,27 +4,36 @@ import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
 import './post.css';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Post = ({ post }) => {
   const { desc, img, createdAt, comment } = post;
   const [likes, setLikes] = useState(post.likes?.length);
   const [isLiked, setIsLiked] = useState(false)
-  const [user, setUser] = useState({});
+  const [author, setAuthor] = useState({});
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  const { data: userLoggedIn } = useSelector(state => state.loginReducer);
 
   useEffect(() => {
-    const getUser = async () => {
+    const getAuthor = async () => {
       const res = await axios.get(`/users?userId=${post.userId}`);
-      const user = res.data;
-      setUser(user);
+      const author = res.data;
+      setAuthor(author);
     }
-    getUser();
+    getAuthor();
   }, [post.userId]);
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(userLoggedIn._id))
+  }, [post.likes, userLoggedIn._id])
 
 
   const onLikeHandler = () => {
     setIsLiked(!isLiked);
+    axios.put(`/posts/${post._id}/like`, {
+      userId: userLoggedIn._id
+    });
     setLikes(isLiked ? likes - 1: likes + 1);
   }
 
@@ -33,10 +42,10 @@ const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${user.username}`}>
-              <img className="postProfileImg" src={user.img || `${assets}avatar.png`} alt="profile-pic" />
+            <Link to={`/profile/${author.username}`}>
+              <img className="postProfileImg" src={assets + author.profilePic || `${assets}avatar.png`} alt="profile-pic" />
             </Link>
-            <span className="postUsername">{user.username}</span>
+            <span className="postUsername">{author.username}</span>
             <span className="postDate">{format(createdAt)}</span>
           </div>
           <div className="postTopRight">

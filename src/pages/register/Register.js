@@ -12,22 +12,23 @@ export default function Register() {
   const [error, setError] = useState("");
   const history = useNavigate();
 
+  // register
+  const register = async () => {
+    try {
+      await axios.post("/auth/register", {
+        email: email.current.value,
+        password: password.current.value,
+        confirmPassword: confirmPassword.current.value,
+        username: username.current.value
+      });
+      setSuccess(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // register
-    const register = async () => {
-      try {
-        await axios.post("/auth/register", {
-          email: email.current.value,
-          password: password.current.value,
-          confirmPassword: confirmPassword.current.value,
-          username: username.current.value
-        });
-        setSuccess(true);
-      } catch (e) {
-        console.log(e);
-      }
-    };
 
     if (password.current.value === confirmPassword.current.value) {
       // register user and redirect to the login page

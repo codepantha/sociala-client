@@ -1,10 +1,12 @@
 import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons';
 import React, { useRef, useState } from 'react';
 import './share.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { getLoggedInUserPosts, getProfilePosts } from '../../redux/posts/posts';
 
-const Share = () => {
+const Share = ({ username }) => {
+  const dispatch = useDispatch();
   const { data: userLoggedIn } = useSelector(state => state.loginReducer)
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
@@ -17,7 +19,7 @@ const Share = () => {
       userId: userLoggedIn._id,
       desc: desc.current.value
     }
-    
+
     if (file) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
       let filename = file.name + uniqueSuffix
@@ -28,13 +30,19 @@ const Share = () => {
 
       try {
         axios.post('/upload', data)
-      } catch(err) {
+        // if username is passed, then we are on the profile page
+        // and need to fetch profile posts. Else fetch loggedInUser's posts
+        username ? dispatch(getProfilePosts(username))
+          : dispatch(getLoggedInUserPosts(userLoggedIn));
+      } catch (err) {
         console.log(err);
       }
     }
 
     try {
       axios.post('/posts', newPost)
+      username ? dispatch(getProfilePosts(username))
+        : dispatch(getLoggedInUserPosts(userLoggedIn));
     } catch (err) {
       console.log(err)
     }

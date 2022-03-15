@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getLoggedInUserPosts, getProfilePosts } from "../../redux/posts/posts";
 
 const Feed = ({ username }) => {
-  // const [posts, setPosts] = useState([]);
   const { data: userLoggedIn } = useSelector(state => state.loginReducer);
   const dispatch = useDispatch();
   

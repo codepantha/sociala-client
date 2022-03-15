@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import "./rightbar.css";
-import { v4 as uuidv4 } from 'uuid';
-import { users } from '../../fakeData';
-import { Online } from '..';
+import { v4 as uuidv4 } from "uuid";
+import { users } from "../../fakeData";
+import { Online } from "..";
+import axios from "axios";
 
 const Rightbar = ({ user }) => {
+  console.log(user);
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        if (user?._id) {
+          const result = await axios.get("/users/" + user._id + "/friends/");
+          setFriends(result.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFriends();
+  }, [user?._id]);
+
   // the rightbar that displays when on homepage
   const HomeRightBar = () => {
     return (
@@ -19,7 +37,7 @@ const Rightbar = ({ user }) => {
         <img className="rightbarAd" src={`${assets}ad.png`} alt="ad" />
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
-          {users.map(user => (
+          {users.map((user) => (
             <Online key={uuidv4()} user={user} />
           ))}
         </ul>
@@ -29,10 +47,12 @@ const Rightbar = ({ user }) => {
 
   // the rightbar that displays when on profile page
   const ProfileRightBar = () => {
-    const relationship = user.relationship === 1 ?
-      'Single' :
-      user.relationship === 2 ?
-        'Married' : 'Dating'
+    const relationship =
+      user.relationship === 1
+        ? "Single"
+        : user.relationship === 2
+        ? "Married"
+        : "Dating";
 
     return (
       <>
@@ -53,42 +73,28 @@ const Rightbar = ({ user }) => {
         </div>
 
         <h4 className="rightbarTitle">Friends</h4>
-        <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/1.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/2.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/3.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/4.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/5.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-          <div className="rightbarFollowing">
-            <img src={`${assets}people/6.jpg`} alt="" className="rightbarFollowingImg" />
-            <p className="rightbarFollowingName">Ricky Sander</p>
-          </div>
-        </div>
+        <ul className="rightbarFollowings">
+          {friends.map((friend) => (
+            <li key={uuidv4()} className="rightbarFollowing">
+              <img
+                src={`${assets + friend.profilePic}`}
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <p className="rightbarFollowingName">{friend.username}</p>
+            </li>
+          ))}
+        </ul>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <section className="rightbar">
       <div className="rightbarWrapper">
         {/* if user is passed in, we should assume that we're on */}
         {/* the profile page and display appropriate rightbar else homepage */}
-        {user ? <ProfileRightBar /> : <HomeRightBar />}
+        {user ? <ProfileRightBar user={user} /> : <HomeRightBar />}
       </div>
     </section>
   );

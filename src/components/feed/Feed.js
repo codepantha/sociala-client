@@ -22,7 +22,10 @@ const Feed = ({ username }) => {
   return (
     <section className="feed">
       <div className="feedWrapper">
-        <Share username={username} />
+        {/* only show Share if user is on their own page */}
+        { userLoggedIn.username === username &&
+          <Share username={username} />
+        }
         {loading ? 
           'Loading...'
           :

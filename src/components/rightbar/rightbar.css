@@ -78,3 +78,8 @@ margin-bottom: 10px;
   border-radius: 5px;
   object-fit: cover;
 }
+
+.link {
+  text-decoration: none;
+  color: #000;
+}

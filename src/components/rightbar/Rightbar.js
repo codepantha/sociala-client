@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { users } from "../../fakeData";
 import { Online } from "..";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Rightbar = ({ user }) => {
   console.log(user);
@@ -75,14 +76,16 @@ const Rightbar = ({ user }) => {
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFollowings">
           {friends.map((friend) => (
-            <li key={uuidv4()} className="rightbarFollowing">
-              <img
-                src={`${assets + friend.profilePic}`}
-                alt=""
-                className="rightbarFollowingImg"
-              />
-              <p className="rightbarFollowingName">{friend.username}</p>
-            </li>
+            <Link to={`/profile/${friend.username}`} className="link">
+              <li key={uuidv4()} className="rightbarFollowing">
+                <img
+                  src={`${assets + friend.profilePic}`}
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
+                <p className="rightbarFollowingName">{friend.username}</p>
+              </li>
+            </Link>
           ))}
         </ul>
       </>

@@ -5,11 +5,19 @@ import { users } from "../../fakeData";
 import { Online } from "..";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Rightbar = ({ user }) => {
-  console.log(user);
   const assets = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
+  const [error, setError] = useState(null);
+  const { data: userLoggedIn } = useSelector((state) => state.loginReducer);
+  const [followed, setFollowed] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setFollowed(userLoggedIn?.following?.includes(user?._id));
+  }, [userLoggedIn, user?._id]);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -48,6 +56,7 @@ const Rightbar = ({ user }) => {
 
   // the rightbar that displays when on profile page
   const ProfileRightBar = () => {
+    const [message, setMessage] = useState("");
     const relationship =
       user.relationship === 1
         ? "Single"
@@ -55,8 +64,29 @@ const Rightbar = ({ user }) => {
         ? "Married"
         : "Dating";
 
+    const handleFollow = () => {
+      axios
+        .put(`/users/${user._id}/${followed ? "unfollow" : "follow"}`, {
+          userId: userLoggedIn._id
+        })
+        .then((res) => res.data)
+        .then((data) => {
+          setMessage(data);
+          if (followed) dispatch({ type: 'UNFOLLOW_USER', payload: user._id })
+          else dispatch({ type: 'FOLLOW_USER', payload: user._id})
+        })
+        .catch((err) => setError("Ooops! please try again later."));
+      setFollowed(!followed);
+    };
+
     return (
       <>
+        {message && <p>{message}</p>}
+        {userLoggedIn.username !== user.username && (
+          <button className="followBtn" onClick={handleFollow}>
+            {followed ? "Unfollow" : "Follow +"}
+          </button>
+        )}
         <h4 className="rightbarTitle">User Data</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -97,7 +127,7 @@ const Rightbar = ({ user }) => {
       <div className="rightbarWrapper">
         {/* if user is passed in, we should assume that we're on */}
         {/* the profile page and display appropriate rightbar else homepage */}
-        {user ? <ProfileRightBar user={user} /> : <HomeRightBar />}
+        {user ? <ProfileRightBar /> : <HomeRightBar />}
       </div>
     </section>
   );

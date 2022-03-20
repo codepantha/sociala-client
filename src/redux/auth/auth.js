@@ -12,15 +12,17 @@ export const login = (user) => (dispatch) => {
         email: user.email,
         password: user.password
       });
-      console.log(res);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
     } catch (e) {
-      console.log(e)
       dispatch({ type: USER_LOGIN_FAILED, payload: "Ooops! Something bad happened!" });
     }
   }
   executeLogin();
 }
+
+// export const followUser = (id) => (dispatch) => {
+//   dispatch
+// }
 
 const initialScale = {
   loading: true,
@@ -36,6 +38,10 @@ const loginReducer = (state = initialScale, action) => {
       return { loading: false, data: action.payload }
     case USER_LOGIN_FAILED:
       return { loading: false, data: action.payload }
+    case 'FOLLOW_USER':
+      return { ...state, data: {...state.data, following: [...state.data.following, action.payload]}}
+    case 'UNFOLLOW_USER':
+      return { ...state, data: { ...state.data, following: [...state.data.following.filter(user_id => user_id !== action.payload)]} }
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons';
+import { PermMedia, Label, Room, EmojiEmotions, Cancel } from '@material-ui/icons';
 import React, { useRef, useState } from 'react';
 import './share.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,6 +39,8 @@ const Share = ({ username }) => {
       }
     }
 
+    if (file) setFile(null)
+
     try {
       axios.post('/posts', newPost)
       username ? dispatch(getProfilePosts(username))
@@ -60,6 +62,12 @@ const Share = ({ username }) => {
           />
         </div>
         <hr className="shareHr" />
+        { file && (
+          <div className="shareImgContainer">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <div className="shareOption">

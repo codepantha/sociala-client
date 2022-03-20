@@ -4,11 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 import { Post, Share } from "..";
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from "react-router-dom";
 import { getLoggedInUserPosts, getProfilePosts } from "../../redux/posts/posts";
 
 const Feed = ({ username }) => {
   const { data: userLoggedIn } = useSelector(state => state.loginReducer);
   const dispatch = useDispatch();
+  const location = useLocation();
   
   useEffect(() => {
     // if a username is passed, only fetch the user's posts
@@ -23,7 +25,7 @@ const Feed = ({ username }) => {
     <section className="feed">
       <div className="feedWrapper">
         {/* only show Share if user is on their own page */}
-        { userLoggedIn.username === username &&
+        { (userLoggedIn.username === username || location.pathname == '/') &&
           <Share username={username} />
         }
         {loading ? 
